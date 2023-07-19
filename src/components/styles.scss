@@ -1,0 +1,92 @@
+/* styles.scss */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.generate-button{
+  border: none;
+  padding: 15px 15px;
+  background-color: #007bff;
+  border-radius: 5px;
+  color: white;
+  font-weight: 800;
+  margin-top: 25px;
+}
+.quote-box {
+  background-color: #F5F5F5;
+  border-radius: 8px;
+  padding: 40px;
+  margin-bottom: 20px;
+  width: 80%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: Arial, sans-serif;
+  box-shadow:
+    /* The top layer shadow */
+    0 1px 1px rgba(0,0,0,0.15),
+    /* The second layer */
+    0 10px 0 -5px #eee,
+    /* The second layer shadow */
+    0 10px 1px -4px rgba(0,0,0,0.15),
+     /* The third layer */
+    0 20px 0 -10px #eee,
+    /* The third layer shadow */
+    0 20px 1px -9px rgba(0,0,0,0.15);
+    /* Padding for demo purposes */
+
+  &__message {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+
+  &__copy-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: -17px;
+    margin-right: -19px;
+    overflow: hidden;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+
+label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+select {
+  margin-top: 5px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 300px;
+}
+
+h2, h3 {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+h2{
+  font-size: 3rem;
+}
