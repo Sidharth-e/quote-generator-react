@@ -3,6 +3,8 @@ import axios from "axios";
 import "./styles.scss";
 import Loader from "./loader/loader";
 import Pen from "../asset/pen.svg";
+import Penlogo from "../asset/penlogo.svg";
+
 
 const QuoteGenerator = () => {
   const [quote, setQuote] = useState("");
@@ -130,7 +132,10 @@ const QuoteGenerator = () => {
 
   return (
     <div className="container">
-      <h2>QuoteGenerator</h2>
+      <div className="Heading">
+      <img className="pen-logo" src={Penlogo} alt="pen" />
+      <p>Quotes</p>
+      </div>
       <select id="category" value={category} onChange={handleCategoryChange}>
         <option value="random">Random</option>
         {categories.map((cat) => (
@@ -142,7 +147,7 @@ const QuoteGenerator = () => {
       <button className="generate-button" onClick={handleGenerateQuote}>
         Generate More
       </button>
-      <h3>Category: {category}</h3>
+      {/* <h3>Category: {category}</h3> */}
       {isLoading ? (
         <Loader />
       ) : (
@@ -154,7 +159,7 @@ const QuoteGenerator = () => {
             {clipboard ? "✓ Copied" : "Copy"}
           </button>
           <div className="quote-box__message">
-            <p>"{quote.quote}"</p>
+            <p>❝{quote.quote}❞</p>
             <p>
               <img className="pen" src={Pen} alt="pen" />
               {quote.author}
