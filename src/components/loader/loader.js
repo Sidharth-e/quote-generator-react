@@ -1,5 +1,5 @@
 import "./loader.scss";
-import Logo from "../../logo.svg";
+import Logo from "../../asset/logo.svg";
 export default function Loader() {
   return (
     <>

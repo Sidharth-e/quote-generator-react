@@ -45,6 +45,18 @@
     margin-bottom: 20px;
     text-align: center;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    p:last-child{
+      font-size: larger;
+      font-style: italic;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .pen{
+        width: 2rem;
+      }
+    }
   }
 
   &__copy-button {
