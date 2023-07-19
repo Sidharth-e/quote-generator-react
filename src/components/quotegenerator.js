@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./styles.scss";
 import Loader from "./loader/loader";
-import Pen from '../asset/pen.svg'
+import Pen from "../asset/pen.svg";
 
 const QuoteGenerator = () => {
   const [quote, setQuote] = useState("");
@@ -31,7 +31,9 @@ const QuoteGenerator = () => {
       .then((response) => {
         const data = response.data;
         setQuote(data[0]);
-        console.log(data[0])
+
+        setClipboard(false);
+        console.log(data[0]);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -45,7 +47,8 @@ const QuoteGenerator = () => {
   };
 
   const handleCopyToClipboard = () => {
-    navigator.clipboard.writeText(quote);
+    const textToCopy = `"${quote.quote}" - ${quote.author}`;
+    navigator.clipboard.writeText(textToCopy);
     setClipboard(true);
   };
 
@@ -149,7 +152,13 @@ const QuoteGenerator = () => {
           >
             {clipboard ? "✓ Copied" : "Copy"}
           </button>
-          <div className="quote-box__message"><p>{quote.quote}</p><p><img className="pen" src={Pen} alt="pen" />{quote.author}</p></div>
+          <div className="quote-box__message">
+            <p>"{quote.quote}"</p>
+            <p>
+              <img className="pen" src={Pen} alt="pen" />
+              {quote.author}
+            </p>
+          </div>
         </div>
       )}
     </div>
