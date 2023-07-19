@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback ,useMemo} from "react";
 import axios from "axios";
 import "./styles.scss";
 import Loader from "./loader/loader";
@@ -9,55 +9,7 @@ const QuoteGenerator = () => {
   const [category, setCategory] = useState("random");
   const [clipboard, setClipboard] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    fetchQuote();
-  }, [category]);
-
-  const fetchQuote = () => {
-    setIsLoading(true);
-    const selectedCategory =
-      category === "random"
-        ? categories[Math.floor(Math.random() * categories.length)]
-        : category;
-    const url = `https://api.api-ninjas.com/v1/quotes?category=${selectedCategory}`;
-
-    axios
-      .get(url, {
-        headers: {
-          "X-Api-Key": process.env.REACT_APP_API,
-        },
-      })
-      .then((response) => {
-        const data = response.data;
-        setQuote(data[0]);
-
-        setClipboard(false);
-        console.log(data[0]);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Request failed:", error);
-        setIsLoading(false);
-      });
-  };
-
-  const handleCategoryChange = (event) => {
-    setCategory(event.target.value);
-  };
-
-  const handleCopyToClipboard = () => {
-    const textToCopy = `"${quote.quote}" - ${quote.author}`;
-    navigator.clipboard.writeText(textToCopy);
-    setClipboard(true);
-  };
-
-  const handleGenerateQuote = () => {
-    fetchQuote();
-    setClipboard(false); // Reset the clipboard state when generating a new quote.
-  };
-
-  const categories = [
+  const categories = useMemo(()=>[
     "age",
     "alone",
     "amazing",
@@ -125,7 +77,56 @@ const QuoteGenerator = () => {
     "morning",
     "movies",
     "success",
-  ];
+  ],[]);
+
+
+  const fetchQuote = useCallback(() => {
+    setIsLoading(true);
+    const selectedCategory =
+      category === "random"
+        ? categories[Math.floor(Math.random() * categories.length)]
+        : category;
+    const url = `https://api.api-ninjas.com/v1/quotes?category=${selectedCategory}`;
+
+    axios
+      .get(url, {
+        headers: {
+          "X-Api-Key": process.env.REACT_APP_API,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        setQuote(data[0]);
+        setClipboard(false);
+        console.log(data[0]);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Request failed:", error);
+        setIsLoading(false);
+      });
+  }, [category,categories]);
+
+  useEffect(() => {
+    fetchQuote();
+  }, [fetchQuote]);
+
+  const handleCategoryChange = (event) => {
+    setCategory(event.target.value);
+  };
+
+  const handleCopyToClipboard = () => {
+    const textToCopy = `"${quote.quote}" - ${quote.author}`;
+    navigator.clipboard.writeText(textToCopy);
+    setClipboard(true);
+  };
+
+  const handleGenerateQuote = () => {
+    fetchQuote();
+    setClipboard(false); // Reset the clipboard state when generating a new quote.
+  };
+
+
 
   return (
     <div className="container">
